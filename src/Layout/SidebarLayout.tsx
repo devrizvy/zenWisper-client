@@ -1,23 +1,22 @@
-// src/Layout/SidebarLayout.jsx - Fixed for Desktop 3-Column Layout
+// src/Layout/SidebarLayout.tsx - Fixed for Desktop 3-Column Layout
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { useState } from "react";
 import FavouritedChatFeed from "../pages/ChatFeed/FriendChatFeed/FriendChatFeed";
 import RoomChatFeed from "../pages/ChatFeed/RoomChatFeed/RoomChatFeed";
 import Home from "../pages/Home/Home";
 import ChatFeedWrapper from "../Routes/ChatFeedWrapper";
-import { 
-  Bookmark, 
-  MessageSquareMore, 
-  UsersRound, 
-  LibraryBig, 
-  UserCog, 
-  LogOut, ggsgfgzdfgzdfgdzfg
+import {
+  Bookmark,
+  MessageSquareMore,
+  UsersRound,
+  LibraryBig,
+  UserCog,
+  LogOut,
   Menu,
   X
 } from "lucide-react";
-// rkerjrejruigugguujtrshshttsdgdzgzdfgdzfgzdvhhvkjvkjvkjhkjhh
-dfzgdfgzdfgdsf
-const SidebarLayout = () => {
+
+const SidebarLayout: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
 
@@ -42,7 +41,7 @@ const SidebarLayout = () => {
   // Helper function to determine what to show in the right panel
   const getRightPanelContent = () => {
     const pathname = location.pathname;
-    
+
     if (pathname.startsWith('/chat/') && pathname !== '/chat') {
       // Show chat feed for desktop, but check if it's a specific chat
       const chatId = pathname.split('/chat/')[1];
@@ -54,7 +53,7 @@ const SidebarLayout = () => {
     } else if (pathname.startsWith('/favourite/') && pathname !== '/favourite') {
       return <FavouritedChatFeed />;
     }
-    
+
     return <Home />;
   };
 
@@ -62,7 +61,7 @@ const SidebarLayout = () => {
     <div className="flex h-screen text-white overflow-hidden">
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
           onClick={closeMobileMenu}
         />
@@ -79,7 +78,7 @@ const SidebarLayout = () => {
         </Link>
 
         {/* User profile picture */}
-        <div className="cursor-pointer" onClick={() => document.getElementById("profile").showModal()}>
+        <div className="cursor-pointer" onClick={() => (document.getElementById("profile") as HTMLDialogElement).showModal()}>
           <img
             className="mx-auto border-2 border-blue-500 rounded-full w-12 xl:w-14 2xl:w-16"
             src="/exampleUserImage.png"
@@ -140,7 +139,7 @@ const SidebarLayout = () => {
             <hr />
             <li>
               <p
-                onClick={() => document.getElementById("profile").showModal()}
+                onClick={() => (document.getElementById("profile") as HTMLDialogElement).showModal()}
                 data-tip="Profile"
                 className="tooltip-right flex justify-center items-center space-x-3 text-gray-300 hover:text-white cursor-pointer tooltip"
               >
@@ -185,10 +184,10 @@ const SidebarLayout = () => {
           </div>
 
           {/* Mobile User Profile */}
-          <div 
+          <div
             className="flex items-center p-4 border-b border-zinc-600 cursor-pointer"
             onClick={() => {
-              document.getElementById("profile").showModal();
+              (document.getElementById("profile") as HTMLDialogElement).showModal();
               closeMobileMenu();
             }}
           >
@@ -253,7 +252,7 @@ const SidebarLayout = () => {
           <div className="p-4 border-t border-zinc-600 space-y-2">
             <button
               onClick={() => {
-                document.getElementById("profile").showModal();
+                (document.getElementById("profile") as HTMLDialogElement).showModal();
                 closeMobileMenu();
               }}
               className="flex items-center space-x-3 w-full p-3 rounded-lg text-gray-300 hover:text-white hover:bg-zinc-800 transition-colors"
@@ -321,7 +320,7 @@ const SidebarLayout = () => {
                 type="text"
                 placeholder="Enter username"
                 className="input-bordered w-full text-white input text-sm sm:text-base"
-                defaultValue={username}
+                defaultValue={username || ""}
                 readOnly
               />
             </div>
@@ -332,7 +331,7 @@ const SidebarLayout = () => {
                 type="email"
                 placeholder="Enter email"
                 className="input-bordered w-full text-white input text-sm sm:text-base"
-                defaultValue={email}
+                defaultValue={email || ""}
                 readOnly
               />
             </div>
@@ -341,7 +340,7 @@ const SidebarLayout = () => {
               <button
                 type="button"
                 className="bg-purple-500 hover:bg-purple-700 text-white btn btn-sm sm:btn-md"
-                onClick={() => document.getElementById("profile").close()}
+                onClick={() => (document.getElementById("profile") as HTMLDialogElement).close()}
               >
                 Close
               </button>

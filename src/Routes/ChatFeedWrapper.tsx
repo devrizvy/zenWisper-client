@@ -2,21 +2,27 @@ import { useParams, useLocation } from "react-router-dom";
 import useUsers from "../hooks/useUsers";
 import ChatFeed from "../pages/ChatFeed/ChatFeed/ChatFeed";
 
-const ChatFeedWrapper = () => {
+interface LocationState {
+  partnerUsername?: string;
+  partnerEmail?: string;
+}
+
+const ChatFeedWrapper: React.FC = () => {
   const { id } = useParams();
-  const location = useLocation();
+  const location = useLocation<LocationState>();
   const { data: users = [], isLoading } = useUsers();
 
   // Try to get state first
   const state = location.state;
-  let partnerUsername, partnerEmail;
+  let partnerUsername: string | undefined;
+  let partnerEmail: string | undefined;
 
   if (state?.partnerUsername && state?.partnerEmail) {
     partnerUsername = state.partnerUsername;
     partnerEmail = state.partnerEmail;
   } else {
     // Fallback: find user by email param
-    const user = users.find(u => u.email === id);
+    const user = users.find((u: any) => u.email === id);
     partnerUsername = user?.username;
     partnerEmail = user?.email;
   }

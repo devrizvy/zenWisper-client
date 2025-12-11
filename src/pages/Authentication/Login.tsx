@@ -1,23 +1,36 @@
 /* eslint-disable react/no-unescaped-entities */
-// src/pages/Authentication/Login.jsx - Fully Responsive Version
+// src/pages/Authentication/Login.tsx - Fully Responsive Version
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
+interface LoginFormData {
+  email: string;
+  password: string;
+}
+
+interface LoginResponse {
+  token: string;
+  userInfo: {
+    username: string;
+    email: string;
+  };
+}
+
+const Login: React.FC = () => {
   const {
     reset,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<LoginFormData>();
 
   const navigate = useNavigate();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: LoginFormData) => {
     try {
-      const response = await axios.post(
+      const response = await axios.post<LoginResponse>(
         `${import.meta.env.VITE_BACKEND_URL}/login`,
         data
       );
@@ -34,7 +47,7 @@ const Login = () => {
 
       // Navigate to a protected route after successful login
       navigate("/");
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error logging in:", error.response?.data || error.message);
       toast.error(error.message);
     }
@@ -50,7 +63,7 @@ const Login = () => {
             Log in to access your account
           </p>
         </div>
-        
+
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 sm:space-y-12 w-full">
           <div className="space-y-3 sm:space-y-4">
             <div>
@@ -71,7 +84,7 @@ const Login = () => {
                 </p>
               )}
             </div>
-            
+
             <div>
               <div className="flex justify-between mb-2">
                 <label htmlFor="password" className="text-xs sm:text-sm">
@@ -100,7 +113,7 @@ const Login = () => {
               )}
             </div>
           </div>
-          
+
           <div className="-mt-2">
             <div className="pb-4">
               <button

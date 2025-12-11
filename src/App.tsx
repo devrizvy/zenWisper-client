@@ -1,6 +1,6 @@
 import './App.css'
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center">
       <div className="text-center space-y-4">

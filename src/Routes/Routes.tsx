@@ -1,4 +1,4 @@
-// src/Routes/Routes.jsx - Fixed for Desktop 3-Column Layout
+// src/Routes/Routes.tsx - Fixed for Desktop 3-Column Layout
 import { createBrowserRouter } from "react-router-dom";
 import SidebarLayout from "../Layout/SidebarLayout";
 import ChatList from "../pages/ChatList/ChatList";
@@ -75,7 +75,7 @@ export const router = createBrowserRouter([
           <PrivateRoute>
             <div className="md:hidden w-full h-screen">
               <RoomChatFeed />
-            </div>     
+            </div>
           </PrivateRoute>
         ),
       },
